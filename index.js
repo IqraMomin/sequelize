@@ -3,12 +3,15 @@ const app = express();
 const port = 3000;
 const db = require("./utils/db-connection");
 const studentModel = require("./models/Students");
+const studentRoutes = require("./routes/studentRoutes");
 
 app.use(express.json());
 
 app.get("/",(req,res)=>{
     res.send("Hello World");
 })
+
+app.use("/students",studentRoutes);
 
 db.sync({force:false}).then(()=>{
     app.listen(port,()=>{

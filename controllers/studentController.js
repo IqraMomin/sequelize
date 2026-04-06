@@ -13,6 +13,18 @@ const addStudent =async (req,res)=>{
     }
 }
 
+const updateStudent = async (req,res)=>{
+    const {id} = req.params;
+    const {name} = req.body;
+    const student = await Students.findByPk(id);
+    if(!student){
+        res.status(404).send("Student not found");
+    }
+    student.name = name;
+    await student.save();
+    res.status(200).send("User updated successfully");
+}
+
 module.exports = {
-    addStudent
+    addStudent,updateStudent
 }

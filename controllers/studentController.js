@@ -25,6 +25,24 @@ const updateStudent = async (req,res)=>{
     res.status(200).send("User updated successfully");
 }
 
+const deleteStudent = async(req,res)=>{
+    try{
+        const {id} = req.params;
+        const student = await Students.destroy({
+            where:{
+                id:id
+            }
+        })
+        if(!student){
+            res.status(404).send("Student not Found!");
+        }
+        res.status(200).send("Student deleted successfully");
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
 module.exports = {
-    addStudent,updateStudent
+    addStudent,updateStudent,deleteStudent
 }

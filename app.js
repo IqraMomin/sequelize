@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const db = require("./utils/db-connection");
 const studentRoutes = require("./routes/studentRoutes");
+const coursesRoutes = require('./routes/coursesRoutes');
 
 require('./models');
 
@@ -13,8 +14,9 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/students",studentRoutes);
+app.use("/courses",coursesRoutes);
 
-db.sync({alter:true}).then(()=>{
+db.sync({force:false}).then(()=>{
     app.listen(port,()=>{
         console.log("Server is Up and Running on port",port);
     })
